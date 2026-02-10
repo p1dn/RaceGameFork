@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="help.chm" />
     <None Remove="Resources\Coin.png" />
     <None Remove="Resources\mainCar1.png" />
     <None Remove="Resources\mainCar2.png" />
@@ -20,6 +21,12 @@
     <None Remove="Resources\towardsCar3.png" />
     <None Remove="Resources\towardsCar4.png" />
     <None Remove="Resources\towardsCar5.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="help.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
