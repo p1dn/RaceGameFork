@@ -126,12 +126,14 @@ namespace Race
             {
                 if (e.KeyCode == Keys.Right)
                 {
-                    if (mainCar.Right < ClientSize.Width) mainCar.Left += 9;
+                    if (mainCar.Left < ClientSize.Width - mainCar.Width / 2) mainCar.Left += 9;
+                    else mainCar.Left = 0 - mainCar.Width / 2;
                 }
 
                 if (e.KeyCode == Keys.Left)
                 {
-                    if (mainCar.Left > 0) mainCar.Left -= 9;
+                    if (mainCar.Left > 0 - mainCar.Width / 2) mainCar.Left -= 9;
+                    else mainCar.Left = ClientSize.Width - mainCar.Width / 2;
                 }
             }
 
