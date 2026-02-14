@@ -36,7 +36,13 @@
             panelMenu = new Panel();
             startPagePanel = new Panel();
             resultsPanel = new Panel();
+            wmpSound = new AxWMPLib.AxWindowsMediaPlayer();
+            gameMusicAxWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             resultsDataGridView = new DataGridView();
+            userName = new DataGridViewTextBoxColumn();
+            userScore = new DataGridViewTextBoxColumn();
+            userCoins = new DataGridViewTextBoxColumn();
+            userTime = new DataGridViewTextBoxColumn();
             returnButton = new Button();
             usernameTextBox = new TextBox();
             startPageCarPictureBox = new PictureBox();
@@ -88,15 +94,13 @@
             MiddleLane = new Label();
             timerTowardCars = new System.Windows.Forms.Timer(components);
             timerMenu = new System.Windows.Forms.Timer(components);
-            userName = new DataGridViewTextBoxColumn();
-            userScore = new DataGridViewTextBoxColumn();
-            userCoins = new DataGridViewTextBoxColumn();
-            userTime = new DataGridViewTextBoxColumn();
             panelGame.SuspendLayout();
             panelPause.SuspendLayout();
             panelMenu.SuspendLayout();
             startPagePanel.SuspendLayout();
             resultsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)wmpSound).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gameMusicAxWindowsMediaPlayer).BeginInit();
             ((System.ComponentModel.ISupportInitialize)resultsDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)startPageCarPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu1).BeginInit();
@@ -206,6 +210,8 @@
             // 
             // resultsPanel
             // 
+            resultsPanel.Controls.Add(wmpSound);
+            resultsPanel.Controls.Add(gameMusicAxWindowsMediaPlayer);
             resultsPanel.Controls.Add(resultsDataGridView);
             resultsPanel.Controls.Add(returnButton);
             resultsPanel.Dock = DockStyle.Fill;
@@ -213,6 +219,26 @@
             resultsPanel.Name = "resultsPanel";
             resultsPanel.Size = new Size(451, 654);
             resultsPanel.TabIndex = 3;
+            // 
+            // wmpSound
+            // 
+            wmpSound.Enabled = true;
+            wmpSound.Location = new Point(176, 623);
+            wmpSound.Name = "wmpSound";
+            wmpSound.OcxState = (AxHost.State)resources.GetObject("wmpSound.OcxState");
+            wmpSound.Size = new Size(73, 23);
+            wmpSound.TabIndex = 3;
+            wmpSound.Visible = false;
+            // 
+            // gameMusicAxWindowsMediaPlayer
+            // 
+            gameMusicAxWindowsMediaPlayer.Enabled = true;
+            gameMusicAxWindowsMediaPlayer.Location = new Point(90, 623);
+            gameMusicAxWindowsMediaPlayer.Name = "gameMusicAxWindowsMediaPlayer";
+            gameMusicAxWindowsMediaPlayer.OcxState = (AxHost.State)resources.GetObject("gameMusicAxWindowsMediaPlayer.OcxState");
+            gameMusicAxWindowsMediaPlayer.Size = new Size(73, 23);
+            gameMusicAxWindowsMediaPlayer.TabIndex = 2;
+            gameMusicAxWindowsMediaPlayer.Visible = false;
             // 
             // resultsDataGridView
             // 
@@ -223,6 +249,28 @@
             resultsDataGridView.RowTemplate.Height = 25;
             resultsDataGridView.Size = new Size(442, 599);
             resultsDataGridView.TabIndex = 1;
+            // 
+            // userName
+            // 
+            userName.HeaderText = "Name";
+            userName.Name = "userName";
+            // 
+            // userScore
+            // 
+            userScore.HeaderText = "Score";
+            userScore.Name = "userScore";
+            // 
+            // userCoins
+            // 
+            userCoins.HeaderText = "Coins";
+            userCoins.Name = "userCoins";
+            userCoins.Width = 60;
+            // 
+            // userTime
+            // 
+            userTime.HeaderText = "Time";
+            userTime.Name = "userTime";
+            userTime.Width = 140;
             // 
             // returnButton
             // 
@@ -797,28 +845,6 @@
             timerMenu.Interval = 1;
             timerMenu.Tick += timerMenu_Tick;
             // 
-            // userName
-            // 
-            userName.HeaderText = "Name";
-            userName.Name = "userName";
-            // 
-            // userScore
-            // 
-            userScore.HeaderText = "Score";
-            userScore.Name = "userScore";
-            // 
-            // userCoins
-            // 
-            userCoins.HeaderText = "Coins";
-            userCoins.Name = "userCoins";
-            userCoins.Width = 60;
-            // 
-            // userTime
-            // 
-            userTime.HeaderText = "Time";
-            userTime.Name = "userTime";
-            userTime.Width = 140;
-            // 
             // RaceGame
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -844,6 +870,8 @@
             startPagePanel.ResumeLayout(false);
             startPagePanel.PerformLayout();
             resultsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)wmpSound).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gameMusicAxWindowsMediaPlayer).EndInit();
             ((System.ComponentModel.ISupportInitialize)resultsDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)startPageCarPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu1).EndInit();
@@ -938,5 +966,7 @@
         private DataGridViewTextBoxColumn userScore;
         private DataGridViewTextBoxColumn userCoins;
         private DataGridViewTextBoxColumn userTime;
+        private AxWMPLib.AxWindowsMediaPlayer gameMusicAxWindowsMediaPlayer;
+        private AxWMPLib.AxWindowsMediaPlayer wmpSound;
     }
 }

@@ -24,6 +24,8 @@ namespace Race
         private Label[] LanesMenuOne = new Label[5];
         private Label[] LanesMenuTwo = new Label[5];
 
+        private bool isMusicPlaying = true;
+
         private int score = 0;
         private int coins = 0;
         private int carSpeed = 1;
@@ -67,6 +69,29 @@ namespace Race
             }
 
             resultsPanel.Hide();
+
+            gameMusicAxWindowsMediaPlayer.URL = GetSound("freesound_community-8bit-music-for-game-68698.mp3");
+            gameMusicAxWindowsMediaPlayer.settings.setMode("loop", true);
+            PlayOrStopMusic();
+        }
+
+        private void PlayOrStopMusic()
+        {
+            if (isMusicPlaying)
+            {
+                gameMusicAxWindowsMediaPlayer.Ctlcontrols.stop();
+                isMusicPlaying = false;
+            }
+            else
+            {
+                gameMusicAxWindowsMediaPlayer.Ctlcontrols.play();
+                isMusicPlaying = true;
+            }
+        }
+
+        private string GetSound (string path)
+        {
+            return Path.Combine(Application.StartupPath, "Sounds", path);
         }
 
         private void timerRoad_Tick(object sender, EventArgs e)
@@ -128,6 +153,7 @@ namespace Race
                 case 2: coin.Left = rnd.Next(120, 240); break;
                 case 3: coin.Left = rnd.Next(240, 300); break;
             }
+            wmpSound.URL = GetSound("universfield-game-bonus-02-294436.mp3");
         }
 
         private void RaceGame_KeyDown(object sender, KeyEventArgs e)
@@ -190,6 +216,9 @@ namespace Race
         {
             timerRoad.Stop();
             timerTowardCars.Stop();
+            wmpSound.URL = GetSound("soundreality-game-explosion-321700.mp3");
+            PlayOrStopMusic();
+
             if (coins < 15)
             {
                 DialogResult dd = MessageBox.Show("Game Over!", "Приехали!");
@@ -208,7 +237,7 @@ namespace Race
                 }
             }
 
-            user.Score =  score / 10;
+            user.Score = score / 10;
             user.Coins = coins;
             user.Time = DateTime.Now;
         }
@@ -216,6 +245,8 @@ namespace Race
         private void Restart()
         {
             coins -= 15;
+
+            PlayOrStopMusic();
 
             PrepareGame();
         }
@@ -228,6 +259,9 @@ namespace Race
             panelPause.Hide();
             panelGame.Show();
             panelMenu.Hide();
+
+            wmpSound.URL = GetSound("freesound_community-game-start-6104.mp3");
+            PlayOrStopMusic();
         }
 
         private void PrepareGame()
@@ -274,6 +308,7 @@ namespace Race
             timerRoad.Enabled = false;
             timerTowardCars.Enabled = false;
             panelPause.Show();
+            PlayOrStopMusic();
         }
 
         private void buttonResume_Click(object sender, EventArgs e)
@@ -281,6 +316,7 @@ namespace Race
             timerRoad.Enabled = true;
             timerTowardCars.Enabled = true;
             panelPause.Hide();
+            PlayOrStopMusic();
         }
 
         private void buttonExit_Click(object sender, EventArgs e) => panelMenu.Show();
@@ -300,7 +336,6 @@ namespace Race
         private void buttonHelp_Click(object sender, EventArgs e) => Help.ShowHelp(this, Path.Combine(Application.StartupPath, "help.chm"), HelpNavigator.TableOfContents);
 
         private void buttonStart_Click(object sender, EventArgs e) => StartGame();
-
         private void buttonMenuExit_Click(object sender, EventArgs e)
         {
             userManager.Save(user);
