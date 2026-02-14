@@ -16,6 +16,9 @@ namespace Race
     {
         public Random rnd = new Random();
 
+        private User user;
+        private UserManager userManager = new UserManager();
+
         private Label[] LanesOne = new Label[5];
         private Label[] LanesTwo = new Label[5];
         private Label[] LanesMenuOne = new Label[5];
@@ -56,7 +59,14 @@ namespace Race
             LanesMenuTwo[3] = MenuTwoLane4;
             LanesMenuTwo[4] = MenuTwoLane5;
 
-            panelMenu.Show();
+            userManager.Load();
+
+            foreach (var user in userManager.Users)
+            {
+                resultsDataGridView.Rows.Add(user.Name, user.Score, user.Coins, user.Time);
+            }
+
+            resultsPanel.Hide();
         }
 
         private void timerRoad_Tick(object sender, EventArgs e)
@@ -197,6 +207,10 @@ namespace Race
                     panelMenu.Show();
                 }
             }
+
+            user.Score =  score / 10;
+            user.Coins = coins;
+            user.Time = DateTime.Now;
         }
 
         private void Restart()
@@ -245,6 +259,16 @@ namespace Race
             obj.Left = rnd.Next(0, Width - obj.Width);
         }
 
+        private void usernameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                user = new User(usernameTextBox.Text);
+                startPagePanel.Hide();
+                e.SuppressKeyPress = true;
+            }
+        }
+
         private void buttonPause_Click(object sender, EventArgs e)
         {
             timerRoad.Enabled = false;
@@ -261,10 +285,26 @@ namespace Race
 
         private void buttonExit_Click(object sender, EventArgs e) => panelMenu.Show();
 
+        private void resultsButton_Click(object sender, EventArgs e)
+        {
+            startPagePanel.Show();
+            resultsPanel.Show();
+        }
+
+        private void returnButton_Click(object sender, EventArgs e)
+        {
+            resultsPanel.Hide();
+            startPagePanel.Hide();
+        }
+
         private void buttonHelp_Click(object sender, EventArgs e) => Help.ShowHelp(this, Path.Combine(Application.StartupPath, "help.chm"), HelpNavigator.TableOfContents);
 
         private void buttonStart_Click(object sender, EventArgs e) => StartGame();
 
-        private void buttonMenuExit_Click(object sender, EventArgs e) => Close();
+        private void buttonMenuExit_Click(object sender, EventArgs e)
+        {
+            userManager.Save(user);
+            Close();
+        }
     }
 }

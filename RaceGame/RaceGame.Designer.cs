@@ -34,6 +34,14 @@
             panelGame = new Panel();
             panelPause = new Panel();
             panelMenu = new Panel();
+            startPagePanel = new Panel();
+            resultsPanel = new Panel();
+            resultsDataGridView = new DataGridView();
+            returnButton = new Button();
+            usernameTextBox = new TextBox();
+            startPageCarPictureBox = new PictureBox();
+            EnterNameLabel = new Label();
+            resultsButton = new Button();
             buttonHelp = new Button();
             buttonMenuExit = new Button();
             buttonStart = new Button();
@@ -80,9 +88,17 @@
             MiddleLane = new Label();
             timerTowardCars = new System.Windows.Forms.Timer(components);
             timerMenu = new System.Windows.Forms.Timer(components);
+            userName = new DataGridViewTextBoxColumn();
+            userScore = new DataGridViewTextBoxColumn();
+            userCoins = new DataGridViewTextBoxColumn();
+            userTime = new DataGridViewTextBoxColumn();
             panelGame.SuspendLayout();
             panelPause.SuspendLayout();
             panelMenu.SuspendLayout();
+            startPagePanel.SuspendLayout();
+            resultsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)resultsDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)startPageCarPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu2).BeginInit();
@@ -150,6 +166,8 @@
             // panelMenu
             // 
             panelMenu.BackColor = SystemColors.ControlDarkDark;
+            panelMenu.Controls.Add(startPagePanel);
+            panelMenu.Controls.Add(resultsButton);
             panelMenu.Controls.Add(buttonHelp);
             panelMenu.Controls.Add(buttonMenuExit);
             panelMenu.Controls.Add(buttonStart);
@@ -171,8 +189,93 @@
             panelMenu.Location = new Point(0, 0);
             panelMenu.Margin = new Padding(4);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(451, 650);
+            panelMenu.Size = new Size(451, 654);
             panelMenu.TabIndex = 57;
+            // 
+            // startPagePanel
+            // 
+            startPagePanel.Controls.Add(resultsPanel);
+            startPagePanel.Controls.Add(usernameTextBox);
+            startPagePanel.Controls.Add(startPageCarPictureBox);
+            startPagePanel.Controls.Add(EnterNameLabel);
+            startPagePanel.Dock = DockStyle.Fill;
+            startPagePanel.Location = new Point(0, 0);
+            startPagePanel.Name = "startPagePanel";
+            startPagePanel.Size = new Size(451, 654);
+            startPagePanel.TabIndex = 84;
+            // 
+            // resultsPanel
+            // 
+            resultsPanel.Controls.Add(resultsDataGridView);
+            resultsPanel.Controls.Add(returnButton);
+            resultsPanel.Dock = DockStyle.Fill;
+            resultsPanel.Location = new Point(0, 0);
+            resultsPanel.Name = "resultsPanel";
+            resultsPanel.Size = new Size(451, 654);
+            resultsPanel.TabIndex = 3;
+            // 
+            // resultsDataGridView
+            // 
+            resultsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resultsDataGridView.Columns.AddRange(new DataGridViewColumn[] { userName, userScore, userCoins, userTime });
+            resultsDataGridView.Location = new Point(3, 3);
+            resultsDataGridView.Name = "resultsDataGridView";
+            resultsDataGridView.RowTemplate.Height = 25;
+            resultsDataGridView.Size = new Size(442, 599);
+            resultsDataGridView.TabIndex = 1;
+            // 
+            // returnButton
+            // 
+            returnButton.Font = new Font("Microsoft YaHei", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            returnButton.Location = new Point(3, 609);
+            returnButton.Name = "returnButton";
+            returnButton.Size = new Size(81, 37);
+            returnButton.TabIndex = 0;
+            returnButton.Text = "Return";
+            returnButton.UseVisualStyleBackColor = true;
+            returnButton.Click += returnButton_Click;
+            // 
+            // usernameTextBox
+            // 
+            usernameTextBox.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            usernameTextBox.Location = new Point(83, 261);
+            usernameTextBox.MaxLength = 23;
+            usernameTextBox.Name = "usernameTextBox";
+            usernameTextBox.Size = new Size(288, 35);
+            usernameTextBox.TabIndex = 2;
+            usernameTextBox.KeyDown += usernameTextBox_KeyDown;
+            // 
+            // startPageCarPictureBox
+            // 
+            startPageCarPictureBox.Image = Properties.Resources.StartPageCar;
+            startPageCarPictureBox.Location = new Point(-147, 353);
+            startPageCarPictureBox.Name = "startPageCarPictureBox";
+            startPageCarPictureBox.Size = new Size(736, 353);
+            startPageCarPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            startPageCarPictureBox.TabIndex = 1;
+            startPageCarPictureBox.TabStop = false;
+            // 
+            // EnterNameLabel
+            // 
+            EnterNameLabel.AutoSize = true;
+            EnterNameLabel.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            EnterNameLabel.ForeColor = SystemColors.Control;
+            EnterNameLabel.Location = new Point(104, 55);
+            EnterNameLabel.Name = "EnterNameLabel";
+            EnterNameLabel.Size = new Size(240, 40);
+            EnterNameLabel.TabIndex = 0;
+            EnterNameLabel.Text = "Enter your name";
+            // 
+            // resultsButton
+            // 
+            resultsButton.Font = new Font("Microsoft YaHei", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            resultsButton.Location = new Point(3, 609);
+            resultsButton.Name = "resultsButton";
+            resultsButton.Size = new Size(81, 37);
+            resultsButton.TabIndex = 83;
+            resultsButton.Text = "Results";
+            resultsButton.UseVisualStyleBackColor = true;
+            resultsButton.Click += resultsButton_Click;
             // 
             // buttonHelp
             // 
@@ -694,6 +797,28 @@
             timerMenu.Interval = 1;
             timerMenu.Tick += timerMenu_Tick;
             // 
+            // userName
+            // 
+            userName.HeaderText = "Name";
+            userName.Name = "userName";
+            // 
+            // userScore
+            // 
+            userScore.HeaderText = "Score";
+            userScore.Name = "userScore";
+            // 
+            // userCoins
+            // 
+            userCoins.HeaderText = "Coins";
+            userCoins.Name = "userCoins";
+            userCoins.Width = 60;
+            // 
+            // userTime
+            // 
+            userTime.HeaderText = "Time";
+            userTime.Name = "userTime";
+            userTime.Width = 140;
+            // 
             // RaceGame
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -716,6 +841,11 @@
             panelPause.PerformLayout();
             panelMenu.ResumeLayout(false);
             panelMenu.PerformLayout();
+            startPagePanel.ResumeLayout(false);
+            startPagePanel.PerformLayout();
+            resultsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)resultsDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)startPageCarPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu1).EndInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu3).EndInit();
             ((System.ComponentModel.ISupportInitialize)CarMenu2).EndInit();
@@ -796,5 +926,17 @@
 		private Button buttonHelp;
 		private Button buttonMenuExit;
 		private Button buttonStart;
-	}
+        private Panel startPagePanel;
+        private TextBox usernameTextBox;
+        private PictureBox startPageCarPictureBox;
+        private Label EnterNameLabel;
+        private Button resultsButton;
+        private Panel resultsPanel;
+        private Button returnButton;
+        private DataGridView resultsDataGridView;
+        private DataGridViewTextBoxColumn userName;
+        private DataGridViewTextBoxColumn userScore;
+        private DataGridViewTextBoxColumn userCoins;
+        private DataGridViewTextBoxColumn userTime;
+    }
 }
